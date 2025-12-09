@@ -1,0 +1,42 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="goBack()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Product Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="loading-container" *ngIf="isLoading">
+    <ion-spinner></ion-spinner>
+    <p>Loading product...</p>
+  </div>
+
+  <div *ngIf="error" class="error-container">
+    <ion-card>
+      <ion-card-content class="ion-text-center">
+        <p>{{ error }}</p>
+        <ion-button (click)="goBack()">Go Back</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div *ngIf="product && !isLoading && !error" class="product-detail">
+    <ion-card>
+      <ion-card-content>
+        <h1 class="product-name">{{ product.name }}</h1>
+        
+        <div class="price-section">
+          <div class="price">{{ formattedPrice }}</div>
+          <div class="discount" *ngIf="hasDiscount">Discount Value: {{ product.discount }}</div>
+        </div>
+        
+        <div class="description-section">
+          <h3>Description</h3>
+          <p class="description">{{ product.description }}</p>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

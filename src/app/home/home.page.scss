@@ -1,0 +1,64 @@
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  text-align: center;
+  
+  ion-spinner {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
+  }
+  
+  p {
+    margin: 0;
+    color: var(--ion-color-medium);
+    font-size: 1.1rem;
+  }
+}
+
+.search-sort-container {
+  padding: 16px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  
+  ion-searchbar {
+    flex: 1; // Take up most of the space
+    margin: 0;
+  }
+  
+  .sort-select {
+    min-width: 160px;
+    max-width: 200px;
+  }
+}
+
+// Stack search and sort vertically on mobile
+@media (max-width: 768px) {
+  .search-sort-container {
+    flex-direction: column;
+    gap: 8px;
+    
+    ion-searchbar {
+      width: 100%;
+    }
+    
+    .sort-select {
+      width: 100%;
+      max-width: none;
+    }
+  }
+}
+
+ion-grid {
+  padding: 16px;
+}
+
+@media (max-width: 768px) {
+  ion-grid {
+    padding: 8px;
+  }
+}

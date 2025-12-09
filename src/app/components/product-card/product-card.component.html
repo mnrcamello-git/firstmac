@@ -1,0 +1,14 @@
+<!-- This is where I implemented the take-home requirement: Home Page: Display a list of products with their names, and prices. -->
+<ion-card (click)="viewProduct()" class="clickable-card">
+  <ion-card-header>
+    <ion-card-title>{{ product?.name || 'Unknown Product' }}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <p class="description">{{ product?.description || 'No description available' }}</p>
+    <div class="price-container">
+      <div class="price">{{ formattedPrice }}</div>
+      <!-- Data Manipulation: Display discount only if value > 0 -->
+      <div class="discount" *ngIf="hasDiscount">Discount Value: {{ product.discount }}</div>
+    </div>
+  </ion-card-content>
+</ion-card>

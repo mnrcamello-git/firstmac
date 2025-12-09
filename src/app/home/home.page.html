@@ -1,0 +1,62 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Home</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="loading-container" *ngIf="isLoading">
+    <ion-spinner></ion-spinner>
+    <p>Loading products...</p>
+  </div>
+
+  <ion-alert
+    [isOpen]="!!error"
+    [message]="error || ''"
+    [buttons]="['OK']"
+    (didDismiss)="error = null">
+  </ion-alert>
+
+  <!-- This is where I implemented the take-home requirement: Search Functionality: Implement a search bar that allows users to search for products by name. -->
+  <!-- Data Manipulation: Implement sorting functionality for the product list by price. Display an attribute like discount if only available or with value > 0 -->
+  <div *ngIf="!isLoading && !error" class="search-sort-container">
+    <ion-searchbar 
+      placeholder="Search products..."
+      (ionInput)="onSearch($event)">
+    </ion-searchbar>
+    
+    <ion-select 
+      [(ngModel)]="sortBy"
+      (ionChange)="onSortChange($event)"
+      placeholder="Sort by"
+      class="sort-select">
+      <ion-select-option value="default">Default</ion-select-option>
+      <ion-select-option value="price-low">Price: Low to High</ion-select-option>
+      <ion-select-option value="price-high">Price: High to Low</ion-select-option>
+      <ion-select-option value="name">Name: A to Z</ion-select-option>
+    </ion-select>
+  </div>
+
+  <!-- This is where I implemented the take-home requirement: Custom Component: Accept product data as input properties -->
+  <ion-grid *ngIf="!isLoading && !error">
+    <ion-row>
+      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let product of filteredProducts">
+        <app-product-card [product]="product"></app-product-card>
+      </ion-col>
+      
+      <ion-col size="12" *ngIf="!isLoading && filteredProducts.length === 0">
+        <ion-card>
+          <ion-card-content class="ion-text-center">
+            {{ searchTerm ? 'No products found for "' + searchTerm + '"' : 'No products available' }}
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
